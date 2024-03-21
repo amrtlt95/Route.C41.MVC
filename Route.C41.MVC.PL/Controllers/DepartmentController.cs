@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Route.C41.MVC.BLL.Interfaces;
+using Route.C41.MVC.DAL.Models;
 
 namespace Route.C41.MVC.PL.Controllers
 {
@@ -18,6 +19,20 @@ namespace Route.C41.MVC.PL.Controllers
             return View(allDepartments);
         }
 
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Department department)
+        {
+            if (ModelState.IsValid && _departmentRepository.Add(department) > 0)
+                return RedirectToAction("Index");
+            return View(department);
+
+        }
 
     }
 }
