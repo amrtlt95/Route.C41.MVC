@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Route.C41.MVC.BLL.Repositories
 {
-    internal class DepartmentRepository : IDepartmentRepository
+    public class DepartmentRepository : IDepartmentRepository
     {
         private readonly ApplicationContext _context;
 
