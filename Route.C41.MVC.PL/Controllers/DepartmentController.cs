@@ -34,5 +34,18 @@ namespace Route.C41.MVC.PL.Controllers
 
         }
 
+        public IActionResult Details(int? id)
+        {
+            if (!id.HasValue)
+                return BadRequest();
+
+            var department = _departmentRepository.Get(id.Value);
+            if (department is null)
+                return NotFound();
+
+            return View(department);
+
+        }
+
     }
 }

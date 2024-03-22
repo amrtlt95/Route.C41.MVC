@@ -5,15 +5,15 @@
 
 <h1>Create new department for our company :)</h1>
 <form asp-action="Create">
-<label asp-for="Name">Department Name</label>
-<<input asp-for="Name" placeholder="Department Name"/>
-
+    <label asp-for="Name">Department Name</label>
+    <input asp-for="Name" placeholder="Department Name"/>
+    <br />
 
     <label asp-for="Code">Department Code</label>
-    <<input asp-for="Code" placeholder="Department Code" />
-
+    <input asp-for="Code" placeholder="Department Code" />
+    <br />
     <label asp-for="DateCreated">DateCreated</label>
-    <<input asp-for="DateCreated" placeholder="DateCreated" />
+    <input asp-for="DateCreated" placeholder="DateCreated" />
     <button type="submit" >Create</button>
     <a asp-action="Index">Back</a>
 </form>

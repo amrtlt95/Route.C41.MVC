@@ -29,9 +29,9 @@
                     <td>@department.Name</td>
                     <td>@department.Code</td>
                     <td>@department.DateCreated</td>
-                    <td> <a asp-controller="Department" asp-action="Details">Details</a> </td>
-                    <td><a asp-controller="Department" asp-action="Update">Update</a></td>
-                    <td><a asp-controller="Department" asp-action="Delete">Delete</a></td>
+                    <td> <a asp-controller="Department" asp-action="Details" asp-route-id="@department.ID">Details</a> </td>
+                    <td><a asp-controller="Department" asp-action="Update" asp-route-id="@department.ID">Update</a></td>
+                    <td><a asp-controller="Department" asp-action="Delete" asp-route-id="@department.ID">Delete</a></td>
                     <td></td>
                 </tr>
             }
