@@ -34,7 +34,7 @@ namespace Route.C41.MVC.PL.Controllers
 
         }
 
-        public IActionResult Details(int? id)
+        public IActionResult Details(int? id, string viewName = "Details")
         {
             if (!id.HasValue)
                 return BadRequest();
@@ -43,8 +43,31 @@ namespace Route.C41.MVC.PL.Controllers
             if (department is null)
                 return NotFound();
 
-            return View(department);
+            return View(viewName,department);
 
+        }
+
+        public IActionResult Edit(int? id)
+        {
+            return Details(id,"Edit");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit([FromRoute]int id ,Department department)
+        {
+            if(id != department.ID)
+                return BadRequest();
+
+            if(!ModelState.IsValid) 
+                return View(department);
+
+            _departmentRepository.Update(department);
+
+            return RedirectToAction("Index");
+
+
+            
         }
 
     }
