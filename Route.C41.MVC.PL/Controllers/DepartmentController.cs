@@ -65,9 +65,19 @@ namespace Route.C41.MVC.PL.Controllers
             _departmentRepository.Update(department);
 
             return RedirectToAction("Index");
+    
+        }
 
+        public IActionResult Delete(int? id)
+        {
+            return Details(id, "Delete");
+        }
 
-            
+        [HttpPost]
+        public IActionResult Delete(Department department)
+        {
+            _departmentRepository.Delete(department);
+            return RedirectToAction("Index");
         }
 
     }
