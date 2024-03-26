@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Route.C41.MVC.DAL.Models
 {
-    public class Department
+    public class Department : ModelBase
     {
-        public int ID { get; set; }
+        
 
         public string Name { get; set; }
 

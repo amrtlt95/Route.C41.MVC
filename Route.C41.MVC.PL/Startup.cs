@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 using Route.C41.MVC.BLL.Interfaces;
 using Route.C41.MVC.BLL.Repositories;
 using Route.C41.MVC.DAL.Data;
+using Route.C41.MVC.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,10 @@ namespace Route.C41.MVC.PL
 
             services.AddDbContext<ApplicationContext>(optionsBuilder => { optionsBuilder.UseSqlServer(Configuration.GetConnectionString("Default")); }, ServiceLifetime.Scoped , ServiceLifetime.Scoped);
 
-            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            //services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            //services.AddScoped<IGenericRepository<ModelBase>, GenericRepository<ModelBase>>();
+            services.AddScoped<IGenericRepository<Department>, GenericRepository<Department>>();
+            services.AddScoped<IGenericRepository<Employee>, GenericRepository<Employee>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
