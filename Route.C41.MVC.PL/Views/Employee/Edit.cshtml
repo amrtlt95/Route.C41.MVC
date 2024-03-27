@@ -7,8 +7,12 @@
 
 
 <form asp-action="Edit">
-    <label asp-for="Name">Employee Name</label>
-    <input asp-for="Name" placeholder="Employee Name"  />
+    <div class="form-group">
+
+        <label asp-for="Name" class="col-form-label">Employee Name</label>
+    <input asp-for="Name"  class="form-control" placeholder="Employee Name"/>
+    <span asp-validation-for="Name"></span>
+    </div>
     <br />
 
     <label asp-for="Age">Employee Age</label>
@@ -53,3 +57,11 @@
     <button type="submit">Create</button>
     <a asp-action="Index">Back</a>
 </form>
+
+
+
+
+@section ValidationSection {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+}

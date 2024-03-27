@@ -7,15 +7,23 @@
 <form asp-action="Create">
     <label asp-for="Name">Department Name</label>
     <input asp-for="Name" placeholder="Department Name"/>
+    <span asp-validation-for="Name"></span>
     <br />
 
     <label asp-for="Code">Department Code</label>
     <input asp-for="Code" placeholder="Department Code" />
+    <span asp-validation-for="Code" class="text-danger"></span>
+
     <br />
     <label asp-for="DateCreated">DateCreated</label>
     <input asp-for="DateCreated" placeholder="DateCreated" />
     <button type="submit" >Create</button>
     <a asp-action="Index">Back</a>
 </form>
+
+@section ValidationSection{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+}
 
 
