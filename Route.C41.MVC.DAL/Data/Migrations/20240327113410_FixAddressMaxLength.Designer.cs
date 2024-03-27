@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Route.C41.MVC.DAL.Data;
 
 namespace Route.C41.MVC.DAL.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240327113410_FixAddressMaxLength")]
+    partial class FixAddressMaxLength
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,8 +70,7 @@ namespace Route.C41.MVC.DAL.Data.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("Email")
-                        .HasMaxLength(150)
-                        .HasColumnType("varchar(150)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("EmployeeType")
                         .IsRequired()
@@ -96,8 +97,7 @@ namespace Route.C41.MVC.DAL.Data.Migrations
                         .HasColumnType("varchar(50)");
 
                     b.Property<string>("Phone")
-                        .HasMaxLength(150)
-                        .HasColumnType("varchar(150)");
+                        .HasColumnType("varchar");
 
                     b.Property<decimal>("Salary")
                         .HasColumnType("decimal(9,2)");

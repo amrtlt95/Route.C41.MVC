@@ -35,9 +35,9 @@ namespace Route.C41.MVC.DAL.Data.Configurations
 
             builder.Property(E => E.EmployeeType).HasColumnType("varchar").HasMaxLength(8);
 
-            builder.Property(E => E.Address).HasColumnType("varchar");
-            builder.Property(E => E.Email).HasColumnType("varchar");
-            builder.Property(E => E.Phone).HasColumnType("varchar");
+            builder.Property(E => E.Address).HasColumnType("varchar").HasMaxLength(150);
+            builder.Property(E => E.Email).HasColumnType("varchar").HasMaxLength(150);
+            builder.Property(E => E.Phone).HasColumnType("varchar").HasMaxLength(150);
 
 
 

@@ -4,19 +4,19 @@ using Route.C41.MVC.DAL.Models;
 
 namespace Route.C41.MVC.PL.Controllers
 {
-    public class DepartmentController : Controller
+    public class EmployeeController : Controller
     {
-        private readonly IGenericRepository<Department> _departmentRepository;
+        private readonly IGenericRepository<Employee> _employeeRepository;
 
 
-        public DepartmentController(IGenericRepository<Department> DepartmentRepository) {
-            _departmentRepository = DepartmentRepository;
+        public EmployeeController(IGenericRepository<Employee> EmployeeRepository) {
+            _employeeRepository = EmployeeRepository;
         }
         public IActionResult Index()
         {
-            var allDepartments = _departmentRepository.GetAll();
+            var allEmployees = _employeeRepository.GetAll();
 
-            return View(allDepartments);
+            return View(allEmployees);
         }
 
         [HttpGet]
@@ -26,11 +26,11 @@ namespace Route.C41.MVC.PL.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Department department)
+        public IActionResult Create(Employee employee)
         {
-            if (ModelState.IsValid && _departmentRepository.Add(department) > 0)
+            if (ModelState.IsValid && _employeeRepository.Add(employee) > 0)
                 return RedirectToAction("Index");
-            return View(department);
+            return View(employee);
 
         }
 
@@ -39,11 +39,11 @@ namespace Route.C41.MVC.PL.Controllers
             if (!id.HasValue)
                 return BadRequest();
 
-            var department = _departmentRepository.Get(id.Value);
-            if (department is null)
+            var employee = _employeeRepository.Get(id.Value);
+            if (employee is null)
                 return NotFound();
 
-            return View(viewName,department);
+            return View(viewName,employee);
 
         }
 
@@ -54,15 +54,15 @@ namespace Route.C41.MVC.PL.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit([FromRoute]int id ,Department department)
+        public IActionResult Edit([FromRoute]int id ,Employee employee)
         {
-            if(id != department.ID)
+            if(id != employee.ID)
                 return BadRequest();
 
             if(!ModelState.IsValid) 
-                return View(department);
+                return View(employee);
 
-            _departmentRepository.Update(department);
+            _employeeRepository.Update(employee);
 
             return RedirectToAction("Index");
     
@@ -74,9 +74,9 @@ namespace Route.C41.MVC.PL.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(Department department)
+        public IActionResult Delete(Employee employee)
         {
-            _departmentRepository.Delete(department);
+            _employeeRepository.Delete(employee);
             return RedirectToAction("Index");
         }
 
