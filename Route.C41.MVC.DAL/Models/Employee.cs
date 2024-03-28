@@ -23,9 +23,9 @@ namespace Route.C41.MVC.DAL.Models
         [EnumMember(Value ="Part Time")]
         PartTime=2
     }
-    public class Employee : ModelBase
+    public class Employee
     {
-        
+        public int ID { get; set; }
 
 
         [MaxLength(50 , ErrorMessage ="Max Length of Name is 50 charachters")]
