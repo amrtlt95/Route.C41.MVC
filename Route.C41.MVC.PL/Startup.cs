@@ -35,9 +35,8 @@ namespace Route.C41.MVC.PL
 
             //services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             //services.AddScoped<IGenericRepository<ModelBase>, GenericRepository<ModelBase>>();
-            //services.AddScoped<IGenericRepository<Department>, GenericRepository<Department>>();
-            //services.AddScoped<IGenericRepository<Employee>, GenericRepository<Employee>>();
-            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IGenericRepository<Department>, GenericRepository<Department>>();
+            services.AddScoped<IGenericRepository<Employee>, GenericRepository<Employee>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
