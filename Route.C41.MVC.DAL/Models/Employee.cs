@@ -24,9 +24,8 @@ namespace Route.C41.MVC.DAL.Models
         [EnumMember(Value ="Part Time")]
         PartTime=2
     }
-    internal class Employee
+    internal class Employee : ModelBase
     {
-        public int ID { get; set; }
 
         [MinLength(3)]
         public string Name { get; set; }
