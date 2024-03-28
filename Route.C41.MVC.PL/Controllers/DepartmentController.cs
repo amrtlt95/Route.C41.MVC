@@ -6,10 +6,10 @@ namespace Route.C41.MVC.PL.Controllers
 {
     public class DepartmentController : Controller
     {
-        private readonly IGenericRepository<Department> _departmentRepository;
+        private readonly IDepartmentRepository _departmentRepository;
 
 
-        public DepartmentController(IGenericRepository<Department> DepartmentRepository) {
+        public DepartmentController(IDepartmentRepository DepartmentRepository) {
             _departmentRepository = DepartmentRepository;
         }
         public IActionResult Index()

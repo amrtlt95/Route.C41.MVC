@@ -56,8 +56,7 @@ namespace Route.C41.MVC.DAL.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
-                        .HasMaxLength(150)
-                        .HasColumnType("varchar(150)");
+                        .HasColumnType("varchar");
 
                     b.Property<int?>("Age")
                         .HasColumnType("int");
@@ -68,8 +67,7 @@ namespace Route.C41.MVC.DAL.Data.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("Email")
-                        .HasMaxLength(150)
-                        .HasColumnType("varchar(150)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("EmployeeType")
                         .IsRequired()
@@ -96,8 +94,7 @@ namespace Route.C41.MVC.DAL.Data.Migrations
                         .HasColumnType("varchar(50)");
 
                     b.Property<string>("Phone")
-                        .HasMaxLength(150)
-                        .HasColumnType("varchar(150)");
+                        .HasColumnType("varchar");
 
                     b.Property<decimal>("Salary")
                         .HasColumnType("decimal(9,2)");
