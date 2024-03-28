@@ -5,7 +5,7 @@ using Route.C41.MVC.DAL.Models;
 
 namespace Route.C41.MVC.PL.Controllers
 {
-    [ValidateAntiForgeryToken]
+    //[ValidateAntiForgeryToken]
     public class DepartmentController : Controller
     {
         private readonly IGenericRepository<Department> _departmentRepository;
