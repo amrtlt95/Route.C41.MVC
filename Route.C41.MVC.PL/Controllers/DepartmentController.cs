@@ -1,17 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Route.C41.MVC.BLL.Interfaces;
+using Route.C41.MVC.BLL.Repositories;
 using Route.C41.MVC.DAL.Models;
 
 namespace Route.C41.MVC.PL.Controllers
 {
+    //[ValidateAntiForgeryToken]
     public class DepartmentController : Controller
     {
-        private readonly IDepartmentRepository _departmentRepository;
+        private readonly IGenericRepository<Department> _departmentRepository;
 
 
-        public DepartmentController(IDepartmentRepository DepartmentRepository) {
+        public DepartmentController(IGenericRepository<Department> DepartmentRepository) {
             _departmentRepository = DepartmentRepository;
         }
+        #region Actions
         public IActionResult Index()
         {
             var allDepartments = _departmentRepository.GetAll();
@@ -19,66 +22,69 @@ namespace Route.C41.MVC.PL.Controllers
             return View(allDepartments);
         }
 
-        [HttpGet]
+
         public IActionResult Create()
         {
             return View();
         }
 
+
         [HttpPost]
         public IActionResult Create(Department department)
         {
-            if (ModelState.IsValid && _departmentRepository.Add(department) > 0)
-                return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                var count = _departmentRepository.Add(department);
+                if (count > 0)
+                    return RedirectToAction(nameof(Index));
+            }
             return View(department);
-
         }
 
-        public IActionResult Details(int? id, string viewName = "Details")
+        public IActionResult Details([FromRoute]int? id, string ActionName = "Details")
         {
-            if (!id.HasValue)
+            if (id is null)
                 return BadRequest();
 
             var department = _departmentRepository.Get(id.Value);
-            if (department is null)
+            if (department == null)
                 return NotFound();
 
-            return View(viewName,department);
-
+            return View(ActionName, department);
         }
-
-        public IActionResult Edit(int? id)
+        public IActionResult Edit([FromRoute] int id)
         {
-            return Details(id,"Edit");
+            return Details(id, "Edit");
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit([FromRoute]int id ,Department department)
+        public IActionResult Edit(Department department)
         {
-            if(id != department.ID)
-                return BadRequest();
-
-            if(!ModelState.IsValid) 
-                return View(department);
-
-            _departmentRepository.Update(department);
-
-            return RedirectToAction("Index");
-    
+            if (ModelState.IsValid)
+            {
+                var count = _departmentRepository.Update(department);
+                if (count > 0)
+                    return RedirectToAction(nameof(Index));
+            }
+            return View(department);
         }
 
-        public IActionResult Delete(int? id)
+
+        public IActionResult Delete([FromRoute]int? id)
         {
             return Details(id, "Delete");
         }
 
+
         [HttpPost]
         public IActionResult Delete(Department department)
         {
-            _departmentRepository.Delete(department);
-            return RedirectToAction("Index");
-        }
+            var count = _departmentRepository.Delete(department);
+            if (count > 0)
+                return RedirectToAction(nameof(Index));
+            return View(department);
+        } 
+        #endregion
 
     }
 }

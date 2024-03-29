@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Route.C41.MVC.DAL.Data;
 
 namespace Route.C41.MVC.DAL.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240328120125_InitialCreateDepartmentAndEmployee")]
+    partial class InitialCreateDepartmentAndEmployee
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,9 +36,9 @@ namespace Route.C41.MVC.DAL.Data.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("DateCreated")
-                        .ValueGeneratedOnAdd()
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasComputedColumnSql("GETDATE()");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -56,10 +58,11 @@ namespace Route.C41.MVC.DAL.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasMaxLength(67)
                         .HasColumnType("varchar(67)");
 
-                    b.Property<int?>("Age")
+                    b.Property<int>("Age")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreationDate")
@@ -68,6 +71,7 @@ namespace Route.C41.MVC.DAL.Data.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("varchar(max)");
 
                     b.Property<string>("EmployeeType")

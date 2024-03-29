@@ -32,7 +32,7 @@ namespace Route.C41.MVC.PL
 
             services.AddDbContext<ApplicationContext>(optionsBuilder => { optionsBuilder.UseSqlServer(Configuration.GetConnectionString("Default")); }, ServiceLifetime.Scoped , ServiceLifetime.Scoped);
 
-            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,27 +1,31 @@
 ﻿@model Department
 @{
-    ViewData["Title"] = "Department Details";
+    ViewData["Title"] = "Details";
 }
 
-<h1>Department Details</h1>
+<h1>Details</h1>
+<div class="mt-4">
 
-<form>
-    <div class="form-group">
-
-    <label asp-for="Code" class="col-form-label">@Html.DisplayNameFor(D=> D.Code)</label>
-    <input asp-for="Code" readonly class="form-control"/>
-    </div>
 <div class="form-group">
-
-    <label asp-for="Name" class="col-form-label">@Html.DisplayNameFor(D=>D.Name)</label>
-    <input asp-for="Name" readonly class="form-control"/>
+    <label asp-for="Name" class="col-form-label"></label>
+    <input asp-for="Name" class="form-control" readonly/>
 </div>
+
 <div class="form-group">
-
-    <label asp-for="DateCreated" class="col-form-label">@Html.DisplayNameFor(D => D.DateCreated)</label>
-    <input asp-for="DateCreated" readonly class="form-control"/>
+    <label asp-for="Code" class="col-form-label"></label>
+    <input asp-for="Code" class="form-control" readonly/>
 </div>
-</form>
-<a asp-action="Edit" asp-controller="Department" asp-route-id="@Model.ID" class="btn btn-primary">Edit</a>
-<a asp-action="Index" asp-controller="Department" class="btn btn-info">Back</a>
+
+<div class="form-group">
+    <label asp-for="DateCreated" class="col-form-label"></label>
+    <input asp-for="DateCreated" class="form-control" readonly/>
+</div>
+<div class="mt-4">
+ <a asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-success"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+</div>
+</div>
+
+
 
