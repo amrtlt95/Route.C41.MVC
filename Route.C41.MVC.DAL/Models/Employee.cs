@@ -52,6 +52,8 @@ namespace Route.C41.MVC.DAL.Models
         public string Phone { get; set; }
 
         public Gender Gender { get; set; }
+
+        [Display(Name="Employee type")]
         public EmployeeType EmployeeType { get; set; }
 
 
