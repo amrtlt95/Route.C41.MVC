@@ -27,15 +27,11 @@
                     <td>@department.Name</td>
                     <td>@department.Code</td>
                     <td>@department.DateCreated</td>
-                    <td> <a asp-action="Details" asp-route-id=@department.ID class="btn btn-warning"><i class="fa-solid fa-eye"></i> Details</a> </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@department.ID" class="btn btn-success"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                    </td>
-                    <td>
-                        <a asp-action="Delete" asp-route-id="@department.ID" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Delete</a>
+                
+                        <partial name="_ButtonsPartial" model="@department.ID" />
                        @*  <button type="button" data-department-id="@department.ID" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal"><i class="fa-solid fa-trash"></i> Delete</button>
                          *@
-                        </td>
+                    
                 </tr>
             }
         </tbody>
