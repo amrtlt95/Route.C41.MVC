@@ -16,7 +16,7 @@ namespace Route.C41.MVC.DAL.Data.Configurations
             builder.Property(d => d.ID).UseIdentityColumn(10, 10);
             builder.Property(d => d.Name).IsRequired().HasMaxLength(20);
             builder.Property(d => d.Code).IsRequired().HasMaxLength(20);
-            builder.Property(d => d.DateCreated).HasComputedColumnSql("GETDATE()");
+            builder.Property(d => d.DateCreated).HasDefaultValueSql("GETDATE()");
 
 
         }

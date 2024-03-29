@@ -1,0 +1,30 @@
+﻿@model Department
+@{
+    ViewData["Title"] = "Create Department";
+}
+
+<h1>Create a Department</h1>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Name" class="col-form-label"></label>
+        <input asp-for="Name" placeholder="Department Name" class="form-control"/>
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Code" class="col-form-label"></label>
+        <input asp-for="Code" placeholder="Department Code" class="form-control"/>
+        <span asp-validation-for="Code" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-group">
+        <label asp-for="DateCreated" class="col-form-label"></label>
+        <input asp-for="DateCreated" class="form-control"/>
+        <span asp-validation-for="DateCreated" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+

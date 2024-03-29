@@ -41,7 +41,7 @@ namespace Route.C41.MVC.PL.Controllers
             return View(department);
         }
 
-        public IActionResult Details(int? id, string ActionName = "Details")
+        public IActionResult Details([FromRoute]int? id, string ActionName = "Details")
         {
             if (id is null)
                 return BadRequest();
@@ -70,7 +70,7 @@ namespace Route.C41.MVC.PL.Controllers
         }
 
 
-        public IActionResult Delete(int? id)
+        public IActionResult Delete([FromRoute]int? id)
         {
             return Details(id, "Delete");
         }

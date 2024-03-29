@@ -15,6 +15,7 @@ namespace Route.C41.MVC.DAL.Models
         [Required(ErrorMessage ="Code cannot be empty ya hamada!!!!!!!!!!!!!!!!!!")]
         public string Code { get; set; }
 
+        [Display(Name = "Creation Date")]
         public DateTime DateCreated { get; set; }
 
 

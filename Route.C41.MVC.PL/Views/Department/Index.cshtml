@@ -4,13 +4,81 @@
 }
 
 <h1>Departments</h1>
+<a asp-action="Create" class="mt-4 btn btn-primary">Create new department</a>
 
 @if(Model.Count() > 0)
 {
+    <table class="mt-4 table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(D=> D.Name)</th>
+                <th>@Html.DisplayNameFor(D=> D.Code)</th>
+                <th>@Html.DisplayNameFor(D=> D.DateCreated)</th>
+                <th>Details</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var department in Model)
+            {
+           
+                <tr>
+                    <td>@department.Name</td>
+                    <td>@department.Code</td>
+                    <td>@department.DateCreated</td>
+                    <td> <a asp-action="Details" asp-route-id=@department.ID class="btn btn-warning"><i class="fa-solid fa-eye"></i> Details</a> </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@department.ID" class="btn btn-success"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                    </td>
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@department.ID" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Delete</a>
+                       @*  <button type="button" data-department-id="@department.ID" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal"><i class="fa-solid fa-trash"></i> Delete</button>
+                         *@
+                        </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+   @*  <div id="delete-modal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Department</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete?</p>
+                </div>
+                <div class="modal-footer">
+                    <button  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <form asp-action="Delete" method="post">
+
+                        <button type="submit"  class="btn btn-danger"><i class="fa-solid fa-trash"></i> Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> *@
+
     
 }
+
 else
 {
-    <h4 class="mt-4 alert">There is no departments</h4>
+    <h4 class="mt-4 alert alert-warning">There is no departments</h4>
 }
 
+@* <script>
+    $(document).ready(function () {
+        $('#delete-modal').on('show.bs.modal', function (event) {
+            var button = event.relatedTarget; // Button that triggered the modal
+            var departmentId = button.dataset.departmentId; // Get department ID from data attribute
+            var form = $(this).find('form'); // Find the form inside the modal
+            form.attr('action', '/Departments/Delete/' + departmentId); // Set form action with ID
+        });
+    });
+</script> *@
