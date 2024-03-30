@@ -9,11 +9,13 @@ namespace Route.C41.MVC.PL.Controllers
     public class EmployeeController : Controller
     {
         private readonly IGenericRepository<Employee> _employeeRepository;
+        //private readonly IGenericRepository<Department> _departmentRepository;
 
 
-        public EmployeeController(IGenericRepository<Employee> EmployeeRepository)
+        public EmployeeController(IGenericRepository<Employee> EmployeeRepository/*, IGenericRepository<Department> departmentRepository*/)
         {
             _employeeRepository = EmployeeRepository;
+            //_departmentRepository = departmentRepository;
         }
         #region Actions
         public IActionResult Index()
@@ -26,6 +28,8 @@ namespace Route.C41.MVC.PL.Controllers
 
         public IActionResult Create()
         {
+            //ViewData["Departments"] = __departmentRepository.GetAll();
+
             return View();
         }
 
@@ -37,7 +41,10 @@ namespace Route.C41.MVC.PL.Controllers
             {
                 var count = _employeeRepository.Add(employee);
                 if (count > 0)
+                {
+                    TempData["Message"] = "Employee created successfully";
                     return RedirectToAction(nameof(Index));
+                }
             }
             return View(employee);
         }
@@ -64,8 +71,10 @@ namespace Route.C41.MVC.PL.Controllers
             if (ModelState.IsValid)
             {
                 var count = _employeeRepository.Update(employee);
-                if (count > 0)
+                if (count > 0) {
+                    TempData["Message"] = "Employee updated successfully";
                     return RedirectToAction(nameof(Index));
+                }
             }
             return View(employee);
         }
@@ -82,7 +91,10 @@ namespace Route.C41.MVC.PL.Controllers
         {
             var count = _employeeRepository.Delete(employee);
             if (count > 0)
+            {
+                TempData["Message"] = "Employee deleted successfully";
                 return RedirectToAction(nameof(Index));
+            }
             return View(employee);
         }
         #endregion

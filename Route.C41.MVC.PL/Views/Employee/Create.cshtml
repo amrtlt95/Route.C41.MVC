@@ -9,7 +9,15 @@
 
     <partial name="Partials/_CreateAndEditPartial" />
 
-
+    @* @if(ViewData["Departments"] is not null)
+    {
+        <select class="custom-select">
+            @foreach(var department in ViewData["Departments"] as IEnumerable<Department>)
+            {
+                <option>@department.Name</option>
+            }
+        </select>
+    } *@
 
     <button type="submit" class="btn btn-primary">Submit</button>
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>

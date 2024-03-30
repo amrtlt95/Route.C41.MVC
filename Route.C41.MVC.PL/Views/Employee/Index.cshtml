@@ -3,6 +3,21 @@
     ViewData["Title"] = "Employee";
 }
 
+                
+@if (TempData["Message"] is not null)
+{
+    if (TempData["Message"] as string != "Employee deleted successfully")
+    {
+        <h3 class="alert alert-success">@TempData["Message"]</h3>
+    }
+    else
+    {
+        <h3 class="alert alert-danger">@TempData["Message"]</h3>
+
+    }
+}
+
+
 <h1>Employee</h1>
 <a asp-action="Create" class="mt-4 btn btn-primary">Create new employee</a>
 
