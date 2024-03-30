@@ -19,18 +19,18 @@ namespace Route.C41.MVC.BLL.Repositories
         {
            _applicationContext = applicationContext;
         }
-        public int Add(T entity)
+        public void Add(T entity)
         {
           
                  _applicationContext.Add(entity);
-                return _applicationContext.SaveChanges();
+               
             
         }
 
-        public int Delete(T entity)
+        public void Delete(T entity)
         {
             _applicationContext.Remove(entity);
-            return _applicationContext.SaveChanges();
+           
         }
 
         public IEnumerable<T> GetAll()
@@ -43,10 +43,10 @@ namespace Route.C41.MVC.BLL.Repositories
             return _applicationContext.Find<T>(id);
         }
 
-        public int Update(T entity)
+        public void Update(T entity)
         {
             _applicationContext.Update(entity);
-            return _applicationContext.SaveChanges();
+           
         }
     }
 }

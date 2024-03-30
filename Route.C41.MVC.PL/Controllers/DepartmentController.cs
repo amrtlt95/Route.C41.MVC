@@ -8,16 +8,19 @@ namespace Route.C41.MVC.PL.Controllers
     //[ValidateAntiForgeryToken]
     public class DepartmentController : Controller
     {
-        private readonly IGenericRepository<Department> _departmentRepository;
+        private readonly IUnitOfWork _unitOfWork;
+
+        //private readonly IGenericRepository<Department> _departmentRepository;
 
 
-        public DepartmentController(IGenericRepository<Department> DepartmentRepository) {
-            _departmentRepository = DepartmentRepository;
+        public DepartmentController(IUnitOfWork unitOfWork/*IGenericRepository<Department> DepartmentRepository*/) {
+          _unitOfWork = unitOfWork;
+            //_departmentRepository = DepartmentRepository;
         }
         #region Actions
         public IActionResult Index()
         {
-            var allDepartments = _departmentRepository.GetAll();
+            var allDepartments = _unitOfWork.DepartmentRepository.GetAll();
 
             return View(allDepartments);
         }
@@ -34,7 +37,8 @@ namespace Route.C41.MVC.PL.Controllers
         {
             if (ModelState.IsValid)
             {
-                var count = _departmentRepository.Add(department);
+                _unitOfWork.DepartmentRepository.Add(department);
+                var count = _unitOfWork.Complete();
                 if (count > 0)
                     return RedirectToAction(nameof(Index));
             }
@@ -46,7 +50,7 @@ namespace Route.C41.MVC.PL.Controllers
             if (id is null)
                 return BadRequest();
 
-            var department = _departmentRepository.Get(id.Value);
+            var department = _unitOfWork.DepartmentRepository.Get(id.Value);
             if (department == null)
                 return NotFound();
 
@@ -62,7 +66,8 @@ namespace Route.C41.MVC.PL.Controllers
         {
             if (ModelState.IsValid)
             {
-                var count = _departmentRepository.Update(department);
+                _unitOfWork.DepartmentRepository.Update(department);
+                var count = _unitOfWork.Complete();
                 if (count > 0)
                     return RedirectToAction(nameof(Index));
             }
@@ -79,7 +84,8 @@ namespace Route.C41.MVC.PL.Controllers
         [HttpPost]
         public IActionResult Delete(Department department)
         {
-            var count = _departmentRepository.Delete(department);
+            _unitOfWork.DepartmentRepository.Delete(department);
+            var count = _unitOfWork.Complete();
             if (count > 0)
                 return RedirectToAction(nameof(Index));
             return View(department);

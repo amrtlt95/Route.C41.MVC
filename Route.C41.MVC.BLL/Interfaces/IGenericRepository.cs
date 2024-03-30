@@ -12,11 +12,11 @@ namespace Route.C41.MVC.BLL.Interfaces
 
         public T Get(int id);
 
-        public int Add(T entity);
-
-        public int Update(T entity);
-
-        public int Delete(T entity);
+        public void Add(T entity);
+             
+        public void Update(T entity);
+              
+        public void Delete(T entity);
 
     }
 }

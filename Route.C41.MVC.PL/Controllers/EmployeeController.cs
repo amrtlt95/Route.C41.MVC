@@ -8,19 +8,23 @@ namespace Route.C41.MVC.PL.Controllers
     //[ValidateAntiForgeryToken]
     public class EmployeeController : Controller
     {
-        private readonly IGenericRepository<Employee> _employeeRepository;
+        private readonly IUnitOfWork _unitOfWork;
+
+        //private readonly IGenericRepository<Employee> _employeeRepository;
         //private readonly IGenericRepository<Department> _departmentRepository;
 
 
-        public EmployeeController(IGenericRepository<Employee> EmployeeRepository/*, IGenericRepository<Department> departmentRepository*/)
+
+        public EmployeeController(IUnitOfWork unitOfWork /*IGenericRepository<Employee> EmployeeRepository*//*, IGenericRepository<Department> departmentRepository*/)
         {
-            _employeeRepository = EmployeeRepository;
+            _unitOfWork = unitOfWork;
+            //_employeeRepository = EmployeeRepository;
             //_departmentRepository = departmentRepository;
         }
         #region Actions
         public IActionResult Index()
         {
-            var allEmployees = _employeeRepository.GetAll();
+            var allEmployees = _unitOfWork.EmployeeRepository.GetAll();
 
             return View(allEmployees);
         }
@@ -39,7 +43,8 @@ namespace Route.C41.MVC.PL.Controllers
         {
             if (ModelState.IsValid)
             {
-                var count = _employeeRepository.Add(employee);
+                _unitOfWork.EmployeeRepository.Add(employee);
+                var count = _unitOfWork.Complete();
                 if (count > 0)
                 {
                     TempData["Message"] = "Employee created successfully";
@@ -54,7 +59,7 @@ namespace Route.C41.MVC.PL.Controllers
             if (id is null)
                 return BadRequest();
 
-            var employee = _employeeRepository.Get(id.Value);
+            var employee = _unitOfWork.EmployeeRepository.Get(id.Value);
             if (employee == null)
                 return NotFound();
 
@@ -70,7 +75,8 @@ namespace Route.C41.MVC.PL.Controllers
         {
             if (ModelState.IsValid)
             {
-                var count = _employeeRepository.Update(employee);
+                _unitOfWork.EmployeeRepository.Update(employee);
+                var count = _unitOfWork.Complete();
                 if (count > 0) {
                     TempData["Message"] = "Employee updated successfully";
                     return RedirectToAction(nameof(Index));
@@ -89,7 +95,8 @@ namespace Route.C41.MVC.PL.Controllers
         [HttpPost]
         public IActionResult Delete(Employee employee)
         {
-            var count = _employeeRepository.Delete(employee);
+            _unitOfWork.EmployeeRepository.Delete(employee);
+            var count = _unitOfWork.Complete();
             if (count > 0)
             {
                 TempData["Message"] = "Employee deleted successfully";
