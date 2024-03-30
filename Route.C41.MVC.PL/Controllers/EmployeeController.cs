@@ -15,16 +15,16 @@ namespace Route.C41.MVC.PL.Controllers
 
 
 
-        public EmployeeController(IUnitOfWork unitOfWork /*IGenericRepository<Employee> EmployeeRepository*//*, IGenericRepository<Department> departmentRepository*/)
+        public EmployeeController(IUnitOfWork unitOfWork /*IGenericRepository<Employee> Repository<Employee>()*//*, IGenericRepository<Department> departmentRepository*/)
         {
             _unitOfWork = unitOfWork;
-            //_employeeRepository = EmployeeRepository;
+            //_employeeRepository = Repository<Employee>();
             //_departmentRepository = departmentRepository;
         }
         #region Actions
         public IActionResult Index()
         {
-            var allEmployees = _unitOfWork.EmployeeRepository.GetAll();
+            var allEmployees = _unitOfWork.Repository<Employee>().GetAll();
 
             return View(allEmployees);
         }
@@ -43,7 +43,7 @@ namespace Route.C41.MVC.PL.Controllers
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.EmployeeRepository.Add(employee);
+                _unitOfWork.Repository<Employee>().Add(employee);
                 var count = _unitOfWork.Complete();
                 if (count > 0)
                 {
@@ -59,7 +59,7 @@ namespace Route.C41.MVC.PL.Controllers
             if (id is null)
                 return BadRequest();
 
-            var employee = _unitOfWork.EmployeeRepository.Get(id.Value);
+            var employee = _unitOfWork.Repository<Employee>().Get(id.Value);
             if (employee == null)
                 return NotFound();
 
@@ -75,7 +75,7 @@ namespace Route.C41.MVC.PL.Controllers
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.EmployeeRepository.Update(employee);
+                _unitOfWork.Repository<Employee>().Update(employee);
                 var count = _unitOfWork.Complete();
                 if (count > 0) {
                     TempData["Message"] = "Employee updated successfully";
@@ -95,7 +95,7 @@ namespace Route.C41.MVC.PL.Controllers
         [HttpPost]
         public IActionResult Delete(Employee employee)
         {
-            _unitOfWork.EmployeeRepository.Delete(employee);
+            _unitOfWork.Repository<Employee>().Delete(employee);
             var count = _unitOfWork.Complete();
             if (count > 0)
             {

@@ -3,6 +3,7 @@ using Route.C41.MVC.BLL.Repositories;
 using Route.C41.MVC.DAL.Data;
 using Route.C41.MVC.DAL.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,15 +14,17 @@ namespace Route.C41.MVC.BLL.UnitsOfWork
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationContext _applicationContext;
+        private Hashtable _repositories;
 
-        public IGenericRepository<Department> DepartmentRepository { get ; set; }
-        public IGenericRepository<Employee> EmployeeRepository { get ; set; }
+        //public IGenericRepository<Department> DepartmentRepository { get ; set; }
+        //public IGenericRepository<Employee> EmployeeRepository { get ; set; }
 
         public UnitOfWork(ApplicationContext applicationContext)
         {
-            DepartmentRepository = new GenericRepository<Department>(applicationContext);
-            EmployeeRepository = new GenericRepository<Employee>(applicationContext);
+            //DepartmentRepository = new GenericRepository<Department>(applicationContext);
+            //EmployeeRepository = new GenericRepository<Employee>(applicationContext);
             _applicationContext = applicationContext;
+            _repositories = new Hashtable();
         }
 
         public int Complete()
@@ -32,6 +35,18 @@ namespace Route.C41.MVC.BLL.UnitsOfWork
         public void Dispose()
         {
             _applicationContext.Dispose();
+        }
+
+        public IGenericRepository<T> Repository<T>() where T : ModelBase
+        {
+            var key = nameof(T);
+
+            if( !_repositories.ContainsKey(key) )
+            {
+                _repositories.Add(key, new GenericRepository<T>(_applicationContext));
+            }
+            
+            return _repositories[key] as IGenericRepository<T>;
         }
     }
 }

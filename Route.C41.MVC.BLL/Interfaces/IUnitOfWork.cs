@@ -9,8 +9,10 @@ namespace Route.C41.MVC.BLL.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-        public IGenericRepository<Department> DepartmentRepository{ get; set; }
-        public IGenericRepository<Employee> EmployeeRepository{ get; set; }
+        //public IGenericRepository<Department> DepartmentRepository{ get; set; }
+        //public IGenericRepository<Employee> EmployeeRepository{ get; set; }
+        IGenericRepository<T> Repository<T>() where T : ModelBase;
+
 
         int Complete();
 
