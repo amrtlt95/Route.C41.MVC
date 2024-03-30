@@ -18,7 +18,10 @@ namespace Route.C41.MVC.DAL.Data.Configurations
             builder.Property(d => d.Code).IsRequired().HasMaxLength(20);
             builder.Property(d => d.DateCreated).HasDefaultValueSql("GETDATE()");
 
-
+            builder.HasMany(D => D.Employees)
+                .WithOne(E => E.Department)
+                .HasForeignKey(E => E.DepartmentID)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

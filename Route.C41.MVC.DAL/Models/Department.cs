@@ -19,5 +19,10 @@ namespace Route.C41.MVC.DAL.Models
         public DateTime DateCreated { get; set; }
 
 
+
+
+        public ICollection<Employee> Employees { get; set; } = new HashSet<Employee>();
+
+
     }
 }
