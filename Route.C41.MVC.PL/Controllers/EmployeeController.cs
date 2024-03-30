@@ -28,7 +28,7 @@ namespace Route.C41.MVC.PL.Controllers
 
         public IActionResult Create()
         {
-            //ViewData["Departments"] = __departmentRepository.GetAll();
+            //ViewData["Departments"] = _departmentRepository.GetAll();
 
             return View();
         }
