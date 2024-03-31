@@ -35,7 +35,9 @@ namespace Route.C41.MVC.BLL.Repositories
 
         public IEnumerable<T> GetAll()
         {
-            return _applicationContext.Set<T>().AsNoTracking().ToList();
+            //return _applicationContext.Set<T>().AsNoTracking().ToList();
+            return _applicationContext.Set<T>().ToList();
+
         }
 
         public T Get(int id)

@@ -21,7 +21,7 @@ namespace Route.C41.MVC.DAL.Models
 
 
 
-        public ICollection<Employee> Employees { get; set; } = new HashSet<Employee>();
+        public virtual ICollection<Employee> Employees { get; set; } = new HashSet<Employee>();
 
 
     }

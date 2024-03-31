@@ -31,7 +31,7 @@ namespace Route.C41.MVC.PL
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<ApplicationContext>(optionsBuilder => { optionsBuilder.UseSqlServer(Configuration.GetConnectionString("Default")); }, ServiceLifetime.Scoped , ServiceLifetime.Scoped);
+            services.AddDbContext<ApplicationContext>(optionsBuilder => { optionsBuilder.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("Default")); }, ServiceLifetime.Scoped , ServiceLifetime.Scoped);
 
             //services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
