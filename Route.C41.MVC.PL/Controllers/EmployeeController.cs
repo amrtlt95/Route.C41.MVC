@@ -1,7 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Route.C41.MVC.BLL.Interfaces;
 using Route.C41.MVC.BLL.Repositories;
 using Route.C41.MVC.DAL.Models;
+using Route.C41.MVC.PL.ViewModels.Employee;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Route.C41.MVC.PL.Controllers
 {
@@ -10,14 +15,18 @@ namespace Route.C41.MVC.PL.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
 
+        public IMapper _mapper { get; }
+
         //private readonly IGenericRepository<Employee> _employeeRepository;
         //private readonly IGenericRepository<Department> _departmentRepository;
 
 
 
-        public EmployeeController(IUnitOfWork unitOfWork /*IGenericRepository<Employee> Repository<Employee>()*//*, IGenericRepository<Department> departmentRepository*/)
+        public EmployeeController(IUnitOfWork unitOfWork , IMapper mapper /*IGenericRepository<Employee> Repository<Employee>()*//*, IGenericRepository<Department> departmentRepository*/)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
+
             //_employeeRepository = Repository<Employee>();
             //_departmentRepository = departmentRepository;
         }
@@ -26,7 +35,16 @@ namespace Route.C41.MVC.PL.Controllers
         {
             var allEmployees = _unitOfWork.Repository<Employee>().GetAll();
 
-            return View(allEmployees);
+            var allEmpViewModel = _mapper.Map<IEnumerable<EmployeeViewModel>>(allEmployees);
+            //var allEmpViewModel = allEmployees.Select(e => _mapper.Map<EmployeeViewModel>(e));
+            //var allEmpViewModel = Enumerable.Empty<EmployeeViewModel>();
+            //foreach (var employee in allEmployees)
+            //{
+            //    allEmpViewModel.Append(_mapper.Map<EmployeeViewModel>( employee));
+            //}
+            //var allEmployeeViewModel = 
+
+            return View(allEmpViewModel);
         }
 
 
@@ -39,10 +57,11 @@ namespace Route.C41.MVC.PL.Controllers
 
 
         [HttpPost]
-        public IActionResult Create(Employee employee)
+        public IActionResult Create(EmployeeViewModel employeeViewModel)
         {
             if (ModelState.IsValid)
             {
+                var employee = _mapper.Map<Employee>(employeeViewModel);
                 _unitOfWork.Repository<Employee>().Add(employee);
                 var count = _unitOfWork.Complete();
                 if (count > 0)
@@ -51,7 +70,7 @@ namespace Route.C41.MVC.PL.Controllers
                     return RedirectToAction(nameof(Index));
                 }
             }
-            return View(employee);
+            return View(employeeViewModel);
         }
 
         public IActionResult Details([FromRoute] int? id, string ActionName = "Details")
@@ -63,7 +82,8 @@ namespace Route.C41.MVC.PL.Controllers
             if (employee == null)
                 return NotFound();
 
-            return View(ActionName, employee);
+            var mappedEmployeeViewModel=_mapper.Map<EmployeeViewModel>(employee);
+            return View(ActionName, mappedEmployeeViewModel);
         }
         public IActionResult Edit([FromRoute] int? id)
         {
@@ -71,10 +91,11 @@ namespace Route.C41.MVC.PL.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Employee employee)
+        public IActionResult Edit(EmployeeViewModel employeeViewModel)
         {
             if (ModelState.IsValid)
             {
+                var employee = _mapper.Map<Employee>(employeeViewModel);
                 _unitOfWork.Repository<Employee>().Update(employee);
                 var count = _unitOfWork.Complete();
                 if (count > 0) {
@@ -82,7 +103,7 @@ namespace Route.C41.MVC.PL.Controllers
                     return RedirectToAction(nameof(Index));
                 }
             }
-            return View(employee);
+            return View(employeeViewModel);
         }
 
 
@@ -93,8 +114,9 @@ namespace Route.C41.MVC.PL.Controllers
 
 
         [HttpPost]
-        public IActionResult Delete(Employee employee)
+        public IActionResult Delete(EmployeeViewModel employeeViewModel)
         {
+            var employee = _mapper.Map<Employee>(employeeViewModel);
             _unitOfWork.Repository<Employee>().Delete(employee);
             var count = _unitOfWork.Complete();
             if (count > 0)
@@ -102,7 +124,7 @@ namespace Route.C41.MVC.PL.Controllers
                 TempData["Message"] = "Employee deleted successfully";
                 return RedirectToAction(nameof(Index));
             }
-            return View(employee);
+            return View(employeeViewModel);
         }
         #endregion
 

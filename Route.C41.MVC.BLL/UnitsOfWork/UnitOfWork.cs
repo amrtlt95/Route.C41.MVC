@@ -39,7 +39,7 @@ namespace Route.C41.MVC.BLL.UnitsOfWork
 
         public IGenericRepository<T> Repository<T>() where T : ModelBase
         {
-            var key = nameof(T);
+            var key = typeof(T).Name;
 
             if( !_repositories.ContainsKey(key) )
             {

@@ -10,7 +10,7 @@ using Route.C41.MVC.BLL.Interfaces;
 using Route.C41.MVC.BLL.Repositories;
 using Route.C41.MVC.BLL.UnitsOfWork;
 using Route.C41.MVC.DAL.Data;
-using Route.C41.MVC.PL.Helpers;
+using Route.C41.MVC.PL.Helpers.DIExtentions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +36,7 @@ namespace Route.C41.MVC.PL
 
             //our services
             services.AddServiceExtentions();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
