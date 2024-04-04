@@ -1,6 +1,8 @@
 ﻿using Route.C41.MVC.DAL.Models;
 using System.ComponentModel.DataAnnotations;
 using System;
+using Microsoft.AspNetCore.Http;
+using System.Runtime.CompilerServices;
 
 namespace Route.C41.MVC.PL.ViewModels.Employee
 {
@@ -50,5 +52,11 @@ namespace Route.C41.MVC.PL.ViewModels.Employee
 
         //navigational property
         public virtual Department? Department { get; set; }
+
+        public string ImageName { get; set; }
+
+
+  
+        public IFormFile Image { get; set; }
     }
 }

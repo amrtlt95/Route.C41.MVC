@@ -2,6 +2,7 @@
 using Route.C41.MVC.BLL.Interfaces;
 using Route.C41.MVC.BLL.Repositories;
 using Route.C41.MVC.DAL.Models;
+using System.Threading.Tasks;
 
 namespace Route.C41.MVC.PL.Controllers
 {
@@ -18,9 +19,9 @@ namespace Route.C41.MVC.PL.Controllers
             //_departmentRepository = Repository<Department>();
         }
         #region Actions
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var allDepartments = _unitOfWork.Repository<Department>().GetAll();
+            var allDepartments = await _unitOfWork.Repository<Department>().GetAllAsync();
 
             return View(allDepartments);
         }
@@ -33,41 +34,41 @@ namespace Route.C41.MVC.PL.Controllers
 
 
         [HttpPost]
-        public IActionResult Create(Department department)
+        public async Task<IActionResult> Create(Department department)
         {
             if (ModelState.IsValid)
             {
                 _unitOfWork.Repository<Department>().Add(department);
-                var count = _unitOfWork.Complete();
+                var count = await _unitOfWork.CompleteAsync();
                 if (count > 0)
                     return RedirectToAction(nameof(Index));
             }
             return View(department);
         }
 
-        public IActionResult Details([FromRoute]int? id, string ActionName = "Details")
+        public async Task<IActionResult> Details([FromRoute]int? id, string ActionName = "Details")
         {
             if (id is null)
                 return BadRequest();
 
-            var department = _unitOfWork.Repository<Department>().Get(id.Value);
+            var department = await _unitOfWork.Repository<Department>().GetAsync(id.Value);
             if (department == null)
                 return NotFound();
 
             return View(ActionName, department);
         }
-        public IActionResult Edit([FromRoute] int id)
+        public async Task<IActionResult> Edit([FromRoute] int id)
         {
-            return Details(id, "Edit");
+            return await Details(id, "Edit");
         }
 
         [HttpPost]
-        public IActionResult Edit(Department department)
+        public async Task<IActionResult> Edit(Department department)
         {
             if (ModelState.IsValid)
             {
                 _unitOfWork.Repository<Department>().Update(department);
-                var count = _unitOfWork.Complete();
+                var count = await _unitOfWork.CompleteAsync();
                 if (count > 0)
                     return RedirectToAction(nameof(Index));
             }
@@ -75,17 +76,17 @@ namespace Route.C41.MVC.PL.Controllers
         }
 
 
-        public IActionResult Delete([FromRoute]int? id)
+        public async Task<IActionResult> Delete([FromRoute]int? id)
         {
-            return Details(id, "Delete");
+            return await Details(id, "Delete");
         }
 
 
         [HttpPost]
-        public IActionResult Delete(Department department)
+        public async Task<IActionResult> Delete(Department department)
         {
             _unitOfWork.Repository<Department>().Delete(department);
-            var count = _unitOfWork.Complete();
+            var count = await _unitOfWork.CompleteAsync();
             if (count > 0)
                 return RedirectToAction(nameof(Index));
             return View(department);

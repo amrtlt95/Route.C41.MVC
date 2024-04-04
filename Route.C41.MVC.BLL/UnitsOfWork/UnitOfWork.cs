@@ -27,14 +27,14 @@ namespace Route.C41.MVC.BLL.UnitsOfWork
             _repositories = new Hashtable();
         }
 
-        public int Complete()
+        public async Task<int> CompleteAsync()
         {
-            return _applicationContext.SaveChanges();
+            return await _applicationContext.SaveChangesAsync();
         }
 
-        public void Dispose()
+        public async ValueTask DisposeAsync()
         {
-            _applicationContext.Dispose();
+           await _applicationContext.DisposeAsync();
         }
 
         public IGenericRepository<T> Repository<T>() where T : ModelBase

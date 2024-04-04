@@ -1,0 +1,8 @@
+﻿@model EmployeeViewModel
+
+@if (Model.ImageName is not null)
+{
+    <div class="mt-4 form-group">
+<img src="~/files/images/@Model.ImageName" width="25%" class="rounded-circle" alt="Employee image" />
+    </div>
+}

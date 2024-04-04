@@ -33,16 +33,16 @@ namespace Route.C41.MVC.BLL.Repositories
            
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
             //return _applicationContext.Set<T>().AsNoTracking().ToList();
-            return _applicationContext.Set<T>().ToList();
+            return await _applicationContext.Set<T>().ToListAsync();
 
         }
 
-        public T Get(int id)
+        public async Task<T> GetAsync(int id)
         {
-            return _applicationContext.Find<T>(id);
+            return await _applicationContext.FindAsync<T>(id);
         }
 
         public void Update(T entity)

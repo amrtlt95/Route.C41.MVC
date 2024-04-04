@@ -8,15 +8,15 @@ namespace Route.C41.MVC.BLL.Interfaces
 {
     public interface IGenericRepository<T>
     {
-        public IEnumerable<T> GetAll();
+        Task<IEnumerable<T>> GetAllAsync();
 
-        public T Get(int id);
+        Task<T> GetAsync(int id);
 
-        public void Add(T entity);
-             
-        public void Update(T entity);
-              
-        public void Delete(T entity);
+        void Add(T entity);
+       
+        void Update(T entity);
+       
+        void Delete(T entity);
 
     }
 }

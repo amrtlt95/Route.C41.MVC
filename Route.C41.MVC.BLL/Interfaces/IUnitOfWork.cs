@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Route.C41.MVC.BLL.Interfaces
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork : IAsyncDisposable
     {
         //public IGenericRepository<Department> DepartmentRepository{ get; set; }
         //public IGenericRepository<Employee> EmployeeRepository{ get; set; }
         IGenericRepository<T> Repository<T>() where T : ModelBase;
 
 
-        int Complete();
+        Task<int> CompleteAsync();
 
     }
 }
