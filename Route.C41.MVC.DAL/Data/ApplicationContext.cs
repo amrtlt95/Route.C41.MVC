@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Route.C41.MVC.DAL.Data
 {
-    public class ApplicationContext : IdentityDbContext
+    public class ApplicationContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
